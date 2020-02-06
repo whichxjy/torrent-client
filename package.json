@@ -4,6 +4,7 @@
   "description": "Torrent client in JavaScript",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "mocha"
   },
   "private": true,
