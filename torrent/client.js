@@ -42,8 +42,8 @@ const getHashes = (torrentFileData) => {
 
 // get torrent file from the torrent file data
 const getTorrentFile = (torrentFileData) => {
-  const announce = torrentFileData.announce
-  const infoHash = getInfoHash(torrentFileData)
+  const announce = torrentFileData.announce.toString()
+  const infoHash = getInfoHash(torrentFileData).toString()
   const length = torrentFileData.info.length
   const name = torrentFileData.info.name
   const pieceHashes = getHashes(torrentFileData)
