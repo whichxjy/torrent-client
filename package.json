@@ -11,6 +11,7 @@
   "author": "whichxjy",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.19.2",
     "bencode": "^2.0.1"
   }
 }
