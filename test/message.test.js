@@ -3,23 +3,23 @@ const { describe, it } = require('mocha')
 const message = require('../lib/core/message')
 
 describe('message', () => {
-  describe('#serializeMessage()', () => {
+  describe('#serialize()', () => {
     const tests = [
       {
-        result: message.serializeMessage({
+        result: message.serialize({
           id: message.CHOKE
         }),
         expect: Buffer.from(new Uint8Array([0, 0, 0, 1, 0]))
       },
       {
-        result: message.serializeMessage({
+        result: message.serialize({
           id: message.CHOKE,
           payload: new Uint8Array([])
         }),
         expect: Buffer.from(new Uint8Array([0, 0, 0, 1, 0]))
       },
       {
-        result: message.serializeMessage({
+        result: message.serialize({
           id: message.HAVE,
           payload: new Uint8Array([1, 2, 3, 4, 5])
         }),
