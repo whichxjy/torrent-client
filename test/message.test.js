@@ -9,21 +9,21 @@ describe('message', () => {
         result: message.serialize({
           id: message.CHOKE
         }),
-        expect: Buffer.from(new Uint8Array([0, 0, 0, 1, 0]))
+        expect: Buffer.from([0, 0, 0, 1, 0])
       },
       {
         result: message.serialize({
           id: message.CHOKE,
-          payload: new Uint8Array([])
+          payload: Buffer.from([])
         }),
-        expect: Buffer.from(new Uint8Array([0, 0, 0, 1, 0]))
+        expect: Buffer.from([0, 0, 0, 1, 0])
       },
       {
         result: message.serialize({
           id: message.HAVE,
-          payload: new Uint8Array([1, 2, 3, 4, 5])
+          payload: Buffer.from([1, 2, 3, 4, 5])
         }),
-        expect: Buffer.from(new Uint8Array([0, 0, 0, 6, 4, 1, 2, 3, 4, 5]))
+        expect: Buffer.from([0, 0, 0, 6, 4, 1, 2, 3, 4, 5])
       }
     ]
 
