@@ -6,23 +6,15 @@ describe('message', () => {
   describe('#serialize()', () => {
     const tests = [
       {
-        result: message.serialize({
-          id: message.CHOKE
-        }),
+        result: message.serialize(new message.Message(message.CHOKE)),
         expect: Buffer.from([0, 0, 0, 1, 0])
       },
       {
-        result: message.serialize({
-          id: message.CHOKE,
-          payload: Buffer.from([])
-        }),
+        result: message.serialize(new message.Message(message.CHOKE, Buffer.from([]))),
         expect: Buffer.from([0, 0, 0, 1, 0])
       },
       {
-        result: message.serialize({
-          id: message.HAVE,
-          payload: Buffer.from([1, 2, 3, 4, 5])
-        }),
+        result: message.serialize(new message.Message(message.HAVE, Buffer.from([1, 2, 3, 4, 5]))),
         expect: Buffer.from([0, 0, 0, 6, 4, 1, 2, 3, 4, 5])
       }
     ]
