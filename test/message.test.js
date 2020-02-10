@@ -7,20 +7,20 @@ describe('message', () => {
     const tests = [
       {
         result: message.serializeMessage({
-          id: message.msgChoke
+          id: message.CHOKE
         }),
         expect: Buffer.from(new Uint8Array([0, 0, 0, 1, 0]))
       },
       {
         result: message.serializeMessage({
-          id: message.msgChoke,
+          id: message.CHOKE,
           payload: new Uint8Array([])
         }),
         expect: Buffer.from(new Uint8Array([0, 0, 0, 1, 0]))
       },
       {
         result: message.serializeMessage({
-          id: message.msgHave,
+          id: message.HAVE,
           payload: new Uint8Array([1, 2, 3, 4, 5])
         }),
         expect: Buffer.from(new Uint8Array([0, 0, 0, 6, 4, 1, 2, 3, 4, 5]))
