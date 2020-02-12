@@ -89,4 +89,39 @@ describe('message', () => {
       })
     })
   })
+
+  describe('#parseHave()', () => {
+    const tests = [
+      {
+        input: new message.Message(message.INTERESTED, Buffer.from([0x00, 0x00, 0x00, 0x03])),
+        shouldFail: true,
+        expect: undefined
+      },
+      {
+        input: new message.Message(message.HAVE, Buffer.from([0x00, 0x00, 0x00, 0x00, 0x44])),
+        shouldFail: true,
+        expect: undefined
+      },
+      {
+        input: new message.Message(message.HAVE, Buffer.from([0x00, 0x00, 0x00, 0x03])),
+        shouldFail: false,
+        expect: 3
+      },
+      {
+        input: new message.Message(message.HAVE, Buffer.from([0x12, 0x34, 0x56, 0x78])),
+        shouldFail: false,
+        expect: 305419896
+      }
+    ]
+
+    tests.forEach((test, i) => {
+      it('test ' + (i + 1), () => {
+        if (test.shouldFail) {
+          assert.throws(() => { message.parseHave(test.input) }, Error)
+        } else {
+          assert.deepEqual(message.parseHave(test.input), test.expect)
+        }
+      })
+    })
+  })
 })
