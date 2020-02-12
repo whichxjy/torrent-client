@@ -1,6 +1,7 @@
 const assert = require('assert').strict
 const { describe, it } = require('mocha')
 const message = require('../lib/core/message')
+const error = require('../lib/core/error')
 
 describe('message', () => {
   describe('#serialize()', () => {
@@ -117,7 +118,7 @@ describe('message', () => {
     tests.forEach((test, i) => {
       it('test ' + (i + 1), () => {
         if (test.shouldFail) {
-          assert.throws(() => { message.parseHave(test.input) }, Error)
+          assert.throws(() => { message.parseHave(test.input) }, error.ParseError)
         } else {
           assert.deepEqual(message.parseHave(test.input), test.expect)
         }
