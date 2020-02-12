@@ -125,4 +125,57 @@ describe('message', () => {
       })
     })
   })
+
+  describe('#parsePiece()', () => {
+    const tests = [
+      {
+        input: new message.Message(
+          message.INTERESTED,
+          Buffer.from([
+            0x00, 0x00, 0x00, 0x01,
+            0x00, 0x00, 0x00, 0x02,
+            0x0A, 0x0B, 0x0C, 0x0D
+          ]
+          )),
+        shouldFail: true,
+        expect: undefined
+      },
+      {
+        input: new message.Message(
+          message.PIECE,
+          Buffer.from([
+            0x00, 0x00, 0x00, 0x01
+          ]
+          )),
+        shouldFail: true,
+        expect: undefined
+      },
+      {
+        input: new message.Message(
+          message.PIECE,
+          Buffer.from([
+            0x00, 0x00, 0x00, 0x01,
+            0x00, 0x00, 0x00, 0x02,
+            0x0A, 0x0B, 0x0C, 0x0D
+          ]
+          )),
+        shouldFail: false,
+        expect: {
+          index: 1,
+          begin: 2,
+          piece: Buffer.from([0x0A, 0x0B, 0x0C, 0x0D])
+        }
+      }
+    ]
+
+    tests.forEach((test, i) => {
+      it('test ' + (i + 1), () => {
+        if (test.shouldFail) {
+          assert.throws(() => { message.parsePiece(test.input) }, error.ParseError)
+        } else {
+          assert.deepEqual(message.parsePiece(test.input), test.expect)
+        }
+      })
+    })
+  })
 })
