@@ -43,4 +43,40 @@ describe('bitfield', () => {
       })
     })
   })
+
+  describe('#setPiece()', () => {
+    const tests = [
+      {
+        result: (() => {
+          const bf = Buffer.from([0b01010101, 0b11101110])
+          bitfield.setPrice(bf, 1)
+          return bf
+        })(),
+        expect: Buffer.from([0b01010101, 0b11101110])
+      },
+      {
+        result: (() => {
+          const bf = Buffer.from([0b01010101, 0b11101110])
+          bitfield.setPrice(bf, 1234)
+          return bf
+        })(),
+        expect: Buffer.from([0b01010101, 0b11101110])
+      },
+      {
+        result: (() => {
+          const bf = Buffer.from([0b01010101, 0b11101110])
+          bitfield.setPrice(bf, 0)
+          bitfield.setPrice(bf, 11)
+          return bf
+        })(),
+        expect: Buffer.from([0b11010101, 0b11111110])
+      }
+    ]
+
+    tests.forEach((test, i) => {
+      it('test ' + (i + 1), () => {
+        assert.deepEqual(test.result, test.expect)
+      })
+    })
+  })
 })
