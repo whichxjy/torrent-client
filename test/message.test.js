@@ -26,6 +26,35 @@ describe('message', () => {
     })
   })
 
+  describe('#createHave()', () => {
+    const tests = [
+      {
+        result: message.createHave(1),
+        expect: new message.Message(message.HAVE, Buffer.from([
+          0x00, 0x00, 0x00, 0x01
+        ]))
+      },
+      {
+        result: message.createHave(123),
+        expect: new message.Message(message.HAVE, Buffer.from([
+          0x00, 0x00, 0x00, 0x7B
+        ]))
+      },
+      {
+        result: message.createHave(123456789),
+        expect: new message.Message(message.HAVE, Buffer.from([
+          0x07, 0x5B, 0xCD, 0x15
+        ]))
+      }
+    ]
+
+    tests.forEach((test, i) => {
+      it('test ' + (i + 1), () => {
+        assert.deepEqual(test.result, test.expect)
+      })
+    })
+  })
+
   describe('#createRequest()', () => {
     const tests = [
       {
